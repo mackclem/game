@@ -1,12 +1,15 @@
+
+
 let coins;
 let player;
 let turtle;
 let gamedone;
 let score = 0;
+
 function preload() {
-    turtle = loadImage('turtlec.png');
-    shark = loadImage('shark.png');
-    greenplant = loadImage('grass.png');
+    turtle = loadImage('images/turtlec.png');
+    shark = loadImage('images/shark.png');
+    greenplant = loadImage('images/grass.png');
   }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,7 +18,7 @@ function setup() {
     let c = createSprite(
       random(100, windowWidth-100),
       random(100, windowHeight-100),
-      2, 2);
+      200, 200);
     c.addImage (greenplant);
     c.scale *= 0.09;
     // c.move(10);
@@ -26,30 +29,41 @@ function setup() {
     let c = createSprite(
       random(100, windowWidth-100),
       random(100, windowHeight-100),
-      2, 2);
+      90, 90);
     c.addImage (shark);
     c.scale *= 0.05;
     badcoins.add(c);
   }
-  player = createSprite(10, 10, 5, 5);
+  player = createSprite(10, 10, 200, 200);
   player.addImage(turtle);
   player.scale *= 0.3;
 }
 function draw() {
+    clear()
   background(173, 216, 230);
   player.velocity.x = 
     (mouseX-player.position.x);
   player.velocity.y = 
     (mouseY-player.position.y);
   firstTime=true;
+
+//   if (player.overlap(coins)==true) {
+//     console.log('overlap');
+//     if (mouseIsPressed){
+//         console.log('press');
+//         coins.remove();
+//     }
+//   }
   player.overlap(coins, getCoin);
   player.overlap(badcoins, gameOver);
-  drawSprites();
+  coins.draw();
+  badcoins.draw();
+  // drawSprites();
   fill(255);
   noStroke();
   textSize(40);
   textAlign(CENTER, 0);
-  text("Avoid the sharks and eat all 10 plants by clicking them!",0.5,40,width);
+  text("Avoid the sharks and eat all 10 plants by hovering over them!",0.5,40,width);
   textSize(72);
   textAlign(CENTER, CENTER);
   if (gamedone == true) {
@@ -83,11 +97,12 @@ function draw() {
 function gameOver(player, badcoin) {
     gamedone=true;
 }
+
+
 function getCoin(player, coin) {
-    if (mouseIsPressed) {
       coin.remove();
       score += 1;
     }
     
 
-}
+
