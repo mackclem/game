@@ -90,6 +90,7 @@ function draw() {
             text("You win!", width/2, height/2-50);
             text("Reload the page to play again!", width/2, height/2+50);
             coins.remove();
+            player.remove();
         }
     
   }
@@ -102,7 +103,7 @@ function gameOver(player, badcoin) {
 function getCoin(player, coin) {
       coin.remove();
       score += 1;
-    }
     
+}   
 
 
